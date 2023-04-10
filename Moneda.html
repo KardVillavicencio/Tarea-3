@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title style="text-transform: black;">CASA DE CAMBIO</title>
+
+    <script>
+        var envio, recibo, moneda;
+        var opcionesE = document.getElementsByName("env");
+        var opcionesR = document.getElementsByName("rec");
+
+        function detedENV(){                                // detecta el tipo de moneda a enviar
+            for ( let i = 0; i < opcionesE.length; i++ ) {
+                if ( opcionesE[i].checked ) {
+                    envio = parseFloat(opcionesE[i].value);
+                }
+            }
+        }
+
+        function detedREC(){
+            for ( let i = 0; i < opcionesR.length; i++ ) {  // detecta el tipo de moneda a recibir
+                if ( opcionesR[i].checked ) { 
+                    recibo = parseFloat(opcionesR[i].value);
+                    moneda = i;
+                }
+                
+            }
+            switch (moneda){                // el monto convertirdo mostrará también
+                    case 0:                 // el tipo de moneda a recibir
+                        moneda = "Dólares";
+                        break;
+                    case 1:
+                        moneda = "Euros";
+                        break;
+                    case 2:
+                        moneda = "Soles";
+                        break;
+                }
+        }
+        function intercambio(){                             // operación de cambio de moneda
+            var montoT =document.getElementById("monto");
+            if (envio == null || recibo == null || montoT.value==""){
+                alert("Rellene  los datos");
+            } else{
+                var resultado = parseFloat(  parseFloat(montoT.value) * envio * recibo).toFixed(2);
+                alert("A recibido "+ resultado + " " + moneda);
+            }
+            
+        }
+    </script>
+</head>
+<body style="text-align: center; font-family: sans-serif;">
+    <h1>CASA DE CAMBIO</h1>
+    <h3 style="text-align: left; margin-left: 36.4rem;">Seleccionar moneda a enviar:</h3>
+    <form>
+        <!-- Lista de los opciones a enviar -->
+        <input type="radio" name="env" value="3.74" onclick="detedENV()">Dólares
+        <input type="radio" name="env" value="4.11" onclick="detedENV()">Euros
+        <input type="radio" name="env" value="1" onclick="detedENV()">Soles
+    </form>
+    
+    
+    <h3 style="text-align: left; margin-left: 36.5rem;">Seleccionar moneda a recibir:</h3>
+    <form>
+        <!-- Lista de los opciones a recibir -->
+        <input type="radio" name="rec" value="0.26739" onclick="detedREC()">Dólares
+        <input type="radio" name="rec" value="0.24331" onclick="detedREC()">Euros
+        <input type="radio" name="rec" value="1" onclick="detedREC()">Soles
+    </form>
+    
+    
+    <h3 style="text-align: left; margin-left: 36.7rem;">Ingrese monto:</h3>
+    <form>
+        <!-- ingresar monto y aplicar cambio -->
+    <input style="height: 1.5rem; font-size:large; color: aqua;" type="text" id="monto" placeholder="0"  /><br/><br/>
+    <input type="button" value="Cotizar" onclick="intercambio()">
+    </form>
+</body>
+</html>
